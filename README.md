@@ -1,6 +1,7 @@
 # Waroom MCP
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![smithery badge](https://smithery.ai/badge/@topotal/waroom-mcp)](https://smithery.ai/server/@topotal/waroom-mcp)
 
 > [!CAUTION]
 > これはまだ実験的なプロジェクトであり、安定性やパフォーマンスは保証されていません。使用する際は注意してください。
