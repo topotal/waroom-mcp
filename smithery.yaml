@@ -1,0 +1,19 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - waroomApiKey
+    properties:
+      waroomApiKey:
+        type: string
+        description: Waroom API key for authenticating with the Waroom API
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'node', args: ['dist/main.js'], env: { WAROOM_API_KEY: config.waroomApiKey } })
+  exampleConfig:
+    waroomApiKey: your-api-key-here
