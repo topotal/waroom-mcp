@@ -7,6 +7,10 @@
 
 このプロジェクトは、Waroom APIとインタラクションするためのModel Context Protocol (MCP) サーバーです。標準化されたプロトコルを使用して、Waroomから様々な情報を取得することができます。
 
+<a href="https://glama.ai/mcp/servers/@topotal/waroom-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@topotal/waroom-mcp/badge" alt="Waroom MCP server" />
+</a>
+
 ## 概要
 
 Waroom MCP サーバーは、Waroom APIエンドポイントに構造化された方法でアクセスする方法を提供します。インシデント情報やポストモーテム情報の取得など、さまざまな機能をサポートしています。
