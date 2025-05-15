@@ -2,6 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> [!CAUTION]
+> これはまだ実験的なプロジェクトであり、安定性やパフォーマンスは保証されていません。使用する際は注意してください。
+
 このプロジェクトは、Waroom APIとインタラクションするためのModel Context Protocol (MCP) サーバーです。標準化されたプロトコルを使用して、Waroomから様々な情報を取得することができます。
 
 ## 概要
