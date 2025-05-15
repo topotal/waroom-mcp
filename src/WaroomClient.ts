@@ -14,7 +14,8 @@ export class WaroomClient {
     this.axiosInstance = axios.create({
       headers: {
         'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       }
     });
   }
