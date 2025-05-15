@@ -19,14 +19,14 @@ export WAROOM_API_KEY=your_api_key
 次に、以下のコマンドを実行します：
 
 ```bash
-npx waroom-mcp
+npx @topotal/waroom-mcp
 ```
 
 これにより、MCPサーバーが起動し、定義されたツールを通じてWaroom APIとインタラクションできるようになります。
 
 ## Claude Desktop での使用
 
-Claude Desktopでこの MCP サーバーを使用するには、手動で `npx waroom-mcp` を実行する必要はありません。代わりに、Claude Desktop の設定ファイルに以下の設定を追加してください：
+Claude Desktopでこの MCP サーバーを使用するには、手動で `npx @topotal/waroom-mcp` を実行する必要はありません。代わりに、Claude Desktop の設定ファイルに以下の設定を追加してください：
 
 - MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -36,7 +36,7 @@ Claude Desktopでこの MCP サーバーを使用するには、手動で `npx w
   "mcpServers": {
     "waroom-mcp": {
       "command": "npx",
-      "args": ["waroom-mcp"],
+      "args": ["@topotal/waroom-mcp"],
       "env": {
         "WAROOM_API_KEY": "your-api-key"
       }

@@ -1,5 +1,5 @@
 {
-  "name": "waroom-mcp",
+  "name": "@topotal/waroom-mcp",
   "version": "0.1.0",
   "description": "Waroom MCP Server - Access Waroom API through Model Context Protocol",
   "type": "module",
