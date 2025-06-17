@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/topotal-waroom-mcp-badge.png)](https://mseep.ai/app/topotal-waroom-mcp)
+
 # Waroom MCP
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
