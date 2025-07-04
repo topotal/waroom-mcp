@@ -22,19 +22,23 @@ npm run lint
 
 # MCP Inspector でデバッグ
 npm run inspector
+
+# サーバー実行（Internal API を使用）
+node dist/main.js
 ```
 
 ## アーキテクチャ
 
-このプロジェクトは Waroom API に接続する Model Context Protocol (MCP) サーバーです。
+このプロジェクトは Waroom Internal API に接続する Model Context Protocol (MCP) サーバーです。
 
 ### 主要コンポーネント
 
 - `src/main.ts`: MCPサーバーのエントリーポイント。StdioTransportを使用してMCPサーバーを起動
-- `src/WaroomClient.ts`: Waroom API と通信するHTTPクライアント。axios ベース、認証ヘッダー管理
+- `src/WaroomClient.ts`: Waroom Internal API と通信するHTTPクライアント。axios ベース、認証ヘッダー管理
 - `src/tools/`: MCP ツール定義
   - `incidents.ts`: インシデント関連のツール（一覧取得、詳細取得）
-  - `postmortems.ts`: ポストモーテム関連のツール（一覧取得）
+  - `postmortems.ts`: ポストモーテム関連のツール（一覧取得、作成）
+  - `service-architecture-contexts.ts`: サービスアーキテクチャコンテキスト関連のツール（一覧取得、作成）
 
 ### 技術スタック
 
@@ -56,13 +60,98 @@ npm run inspector
 ### MCP ツール
 
 各ツールは日本語の説明とパラメータバリデーションを持つ：
+
 - `waroom_get_incidents`: ページネーション対応のインシデント一覧
 - `waroom_get_incident_details`: UUID による個別インシデント詳細
 - `waroom_get_postmortems`: ページネーション対応のポストモーテム一覧
+- `waroom_create_postmortem`: ポストモーテムの作成
+- `waroom_get_service_architecture_contexts`: サービスアーキテクチャコンテキスト一覧
+- `waroom_create_service_architecture_context`: サービスアーキテクチャコンテキスト作成
 
 ### API エンドポイント
 
-デフォルトベースURL: `https://api.app.waroom.com/api/v0`
-- `GET /incidents`: インシデント一覧
-- `GET /incidents/{uuid}`: インシデント詳細
-- `GET /postmortems`: ポストモーテム一覧
+ベースURL: `https://api.app.waroom.com/api/v0`
+
+- `GET /internal/incidents`: インシデント一覧
+- `GET /internal/incidents/{uuid}`: インシデント詳細
+- `GET /internal/postmortems`: ポストモーテム一覧
+- `POST /internal/postmortems`: ポストモーテム作成
+- `GET /internal/service_architecture_contexts`: サービスアーキテクチャコンテキスト一覧
+- `POST /internal/service_architecture_contexts`: サービスアーキテクチャコンテキスト作成
+
+## Claude Desktop での設定
+
+### 公開パッケージ版
+```json
+{
+  "mcpServers": {
+    "waroom-mcp": {
+      "command": "npx",
+      "args": ["@topotal/waroom-mcp"],
+      "env": {
+        "WAROOM_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+### 開発版（このリポジトリのコード）
+```json
+{
+  "mcpServers": {
+    "waroom-mcp": {
+      "command": "node",
+      "args": ["path/to/waroom-mcp/dist/main.js"],
+      "env": {
+        "WAROOM_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+**設定ファイルの場所:**
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+## トラブルシューティング
+
+### ログの確認方法
+Claude Desktop のログは以下の場所に保存されています：
+- macOS: `~/Library/Logs/Claude/`
+- Windows: `%APPDATA%/Claude/Logs/`
+
+MCP サーバー固有のログファイル：
+```bash
+# waroom-mcp のログを確認
+tail -f ~/Library/Logs/Claude/mcp-server-waroom-mcp.log
+
+# 最新50行を確認
+tail -50 ~/Library/Logs/Claude/mcp-server-waroom-mcp.log
+```
+
+### よくあるエラーと対処法
+
+#### `spawn node ENOENT` エラー
+**問題:** node コマンドのパスが見つからない  
+**対処法:** Claude Desktop 設定で node の絶対パスを指定する
+
+```bash
+# node のパスを確認
+which node
+# 例: /usr/local/bin/node または ~/.anyenv/envs/nodenv/versions/x.x.x/bin/node
+```
+
+設定ファイルで `"command": "node"` を絶対パスに変更：
+```json
+"command": "/path/to/node"
+```
+
+#### `Method not found` エラー
+**問題:** MCP サーバーが resources や prompts ハンドラーを実装していない  
+**対処法:** これは正常な動作です（当サーバーはツール機能のみを提供）
+
+#### API Key 関連エラー
+**問題:** 環境変数 `WAROOM_API_KEY` が設定されていない  
+**対処法:** Claude Desktop 設定の `env` セクションに正しい API キーを設定
