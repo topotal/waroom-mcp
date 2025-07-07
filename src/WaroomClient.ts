@@ -76,30 +76,6 @@ export class WaroomClient {
     }
   }
 
-  async getServiceArchitectureContexts(page = 1, perPage = 50) {
-    try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/service_architecture_contexts`, {
-        params: { page, per_page: perPage }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(`Failed to get service architecture contexts: ${error}`);
-    }
-  }
-
-  async createServiceArchitectureContext(serviceName: string, blob: string) {
-    try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/service_architecture_contexts`, {
-        service_architecture_context: {
-          service_name: serviceName,
-          blob
-        }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(`Failed to create service architecture context: ${error}`);
-    }
-  }
 
   async getServices(page = 1, perPage = 50) {
     try {
@@ -109,6 +85,58 @@ export class WaroomClient {
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get services: ${error}`);
+    }
+  }
+
+  async getPostmortemTemplate() {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/postmortem_template`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get postmortem template: ${error}`);
+    }
+  }
+
+  async getServiceArchitectureContext(serviceName: string) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/services/${serviceName}/service_architecture_context`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get service architecture context: ${error}`);
+    }
+  }
+
+  async updateIncidentSeverity(incidentUuid: string, severity: string) {
+    try {
+      const response = await this.axiosInstance.put(`${this.baseUrl}/internal/incidents/${incidentUuid}/severity`, {
+        severity
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update incident severity: ${error}`);
+    }
+  }
+
+  async updateIncidentStatus(incidentUuid: string, status: string) {
+    try {
+      const response = await this.axiosInstance.put(`${this.baseUrl}/internal/incidents/${incidentUuid}/status`, {
+        status
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update incident status: ${error}`);
+    }
+  }
+
+  async createIncidentMetrics(incidentUuid: string, activityAction: string, triggeredAt: string) {
+    try {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents/${incidentUuid}/incident_metrics`, {
+        activity_action: activityAction,
+        triggered_at: triggeredAt
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create incident metrics: ${error}`);
     }
   }
 }

@@ -65,4 +65,90 @@ export const createIncidentsTools = (server: McpServer, waroomClient: WaroomClie
       }
     }
   );
+
+  server.tool(
+    'waroom_update_incident_severity',
+    'インシデントの重要度を更新します。',
+    {
+      incident_uuid: z.string().uuid().describe('更新するインシデントのUUID'),
+      severity: z.enum(['critical', 'high', 'low', 'info', 'unknown']).describe('新しい重要度（critical, high, low, info, unknown）'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.updateIncidentSeverity(params.incident_uuid, params.severity);
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `インシデント重要度の更新に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'waroom_update_incident_status',
+    'インシデントのステータスを更新します。',
+    {
+      incident_uuid: z.string().uuid().describe('更新するインシデントのUUID'),
+      status: z.enum(['detected', 'investigating', 'fixing', 'resolved', 'close']).describe('新しいステータス（detected, investigating, fixing, resolved, close）'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.updateIncidentStatus(params.incident_uuid, params.status);
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `インシデントステータスの更新に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
+
+  server.tool(
+    'waroom_create_incident_metrics',
+    'インシデントメトリクスを作成します。レスポンス活動を記録し、TTD/TTA/TTI/TTF/TTRを更新します。',
+    {
+      incident_uuid: z.string().uuid().describe('対象インシデントのUUID'),
+      activity_action: z.enum(['detected', 'acknowledged', 'investigation_started', 'fix_started', 'resolved']).describe('活動アクション（detected, acknowledged, investigation_started, fix_started, resolved）'),
+      triggered_at: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?([+-]\d{2}:\d{2}|Z)$/).describe('実行時刻（ISO 8601形式、例: 2023-01-01T12:00:00Z）'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.createIncidentMetrics(
+          params.incident_uuid,
+          params.activity_action,
+          params.triggered_at
+        );
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `インシデントメトリクスの作成に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
 };

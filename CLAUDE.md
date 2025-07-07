@@ -65,19 +65,27 @@ node dist/main.js
 - `waroom_get_incident_details`: UUID による個別インシデント詳細
 - `waroom_get_postmortems`: ページネーション対応のポストモーテム一覧
 - `waroom_create_postmortem`: ポストモーテムの作成
-- `waroom_get_service_architecture_contexts`: サービスアーキテクチャコンテキスト一覧
-- `waroom_create_service_architecture_context`: サービスアーキテクチャコンテキスト作成
+- `waroom_get_postmortem_template`: ポストモーテムテンプレート取得
+- `waroom_get_services`: サービス一覧取得
+- `waroom_get_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `waroom_update_incident_severity`: インシデント重要度の更新
+- `waroom_update_incident_status`: インシデントステータスの更新
+- `waroom_create_incident_metrics`: インシデントメトリクスの作成（TTD/TTA/TTI/TTF/TTR更新）
 
 ### API エンドポイント
 
 ベースURL: `https://api.app.waroom.com/api/v0`
 
-- `GET /internal/incidents`: インシデント一覧
+- `GET /internal/incidents`: インシデント一覧（statusパラメータでフィルタリング可能）
 - `GET /internal/incidents/{uuid}`: インシデント詳細
 - `GET /internal/postmortems`: ポストモーテム一覧
 - `POST /internal/postmortems`: ポストモーテム作成
-- `GET /internal/service_architecture_contexts`: サービスアーキテクチャコンテキスト一覧
-- `POST /internal/service_architecture_contexts`: サービスアーキテクチャコンテキスト作成
+- `GET /internal/postmortem_template`: ポストモーテムテンプレート取得
+- `GET /internal/services`: サービス一覧
+- `GET /internal/services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `PUT /internal/incidents/{uuid}/severity`: インシデント重要度の更新
+- `PUT /internal/incidents/{uuid}/status`: インシデントステータスの更新
+- `POST /internal/incidents/{uuid}/incident_metrics`: インシデントメトリクスの作成
 
 ## Claude Desktop での設定
 
