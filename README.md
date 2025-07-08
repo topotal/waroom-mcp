@@ -55,11 +55,28 @@ Claude Desktopでこの MCP サーバーを使用するには、手動で `npx @
 このModel Context Protocolサーバーは、以下のWaroom関連ツールを提供します：
 
 ### インシデント関連
-- waroom_get_incidents: インシデントの一覧を取得
-- waroom_get_incident_details: 特定のインシデントの詳細を取得
+- `waroom_create_incident`: インシデントの作成（サービス名、タイトル、重要度など指定）
+- `waroom_get_incidents`: ページネーション対応のインシデント一覧
+- `waroom_get_incident_details`: UUID による個別インシデント詳細
+- `waroom_update_incident_severity`: インシデント重要度の更新
+- `waroom_update_incident_status`: インシデントステータスの更新
+- `waroom_create_incident_metrics`: インシデントメトリクスの作成（TTD/TTA/TTI/TTF/TTR更新）
+- `waroom_update_incident_labels`: インシデントにラベルを付与または更新
 
 ### ポストモーテム関連
-- waroom_get_postmortems: ポストモーテムの一覧を取得
+- `waroom_get_postmortems`: ページネーション対応のポストモーテム一覧
+- `waroom_create_postmortem`: ポストモーテムの作成
+- `waroom_get_postmortem_template`: ポストモーテムテンプレート取得
+
+### サービス関連
+- `waroom_get_services`: サービス一覧取得
+- `waroom_get_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+
+### ラベル管理
+- `waroom_get_service_labels`: 特定のサービスのラベル一覧を取得
+- `waroom_create_service_label`: 特定のサービスに新しいラベルを作成
+- `waroom_update_service_label`: 特定のサービスのラベルを更新
+- `waroom_delete_service_label`: 特定のサービスのラベルを削除
 
 ## デバッグ
 
