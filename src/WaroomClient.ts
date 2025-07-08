@@ -157,4 +157,63 @@ export class WaroomClient {
       throw new Error(`Failed to create incident metrics: ${error}`);
     }
   }
+
+  async getServiceLabels(serviceName: string, page = 1, perPage = 50) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/services/${serviceName}/labels`, {
+        params: { page, per_page: perPage }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get service labels: ${error}`);
+    }
+  }
+
+  async createServiceLabel(serviceName: string, name: string, color: string) {
+    try {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/services/${serviceName}/labels`, {
+        label: {
+          name,
+          color
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create service label: ${error}`);
+    }
+  }
+
+  async updateServiceLabel(serviceName: string, labelUuid: string, name: string, color: string) {
+    try {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/internal/services/${serviceName}/labels/${labelUuid}`, {
+        label: {
+          name,
+          color
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update service label: ${error}`);
+    }
+  }
+
+  async deleteServiceLabel(serviceName: string, labelUuid: string) {
+    try {
+      const response = await this.axiosInstance.delete(`${this.baseUrl}/internal/services/${serviceName}/labels/${labelUuid}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to delete service label: ${error}`);
+    }
+  }
+
+  async updateIncidentLabels(incidentUuid: string, labelUuids: string[]) {
+    try {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/internal/incidents/${incidentUuid}/labels`, {
+        label_uuids: labelUuids
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update incident labels: ${error}`);
+    }
+  }
 }

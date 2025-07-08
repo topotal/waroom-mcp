@@ -6,6 +6,7 @@ import { WaroomClient } from './WaroomClient.js';
 import { createIncidentsTools } from './tools/incidents.js';
 import { createPostmortemsTools } from './tools/postmortems.js';
 import { createServicesTools } from './tools/services.js';
+import { createLabelsTools } from './tools/labels.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ const server = new McpServer({
 createIncidentsTools(server, waroomClient);
 createPostmortemsTools(server, waroomClient);
 createServicesTools(server, waroomClient);
+createLabelsTools(server, waroomClient);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

@@ -39,6 +39,7 @@ node dist/main.js
   - `incidents.ts`: インシデント関連のツール（作成、一覧取得、詳細取得、重要度・ステータス更新、メトリクス作成）
   - `postmortems.ts`: ポストモーテム関連のツール（一覧取得、作成、テンプレート取得）
   - `services.ts`: サービス関連のツール（一覧取得、アーキテクチャコンテキスト取得）
+  - `labels.ts`: ラベル管理のツール（サービスラベル一覧取得、作成、更新、削除、インシデントラベル付与）
 
 ### 技術スタック
 
@@ -72,6 +73,11 @@ node dist/main.js
 - `waroom_update_incident_severity`: インシデント重要度の更新
 - `waroom_update_incident_status`: インシデントステータスの更新
 - `waroom_create_incident_metrics`: インシデントメトリクスの作成（TTD/TTA/TTI/TTF/TTR更新）
+- `waroom_get_service_labels`: 特定のサービスのラベル一覧を取得
+- `waroom_create_service_label`: 特定のサービスに新しいラベルを作成
+- `waroom_update_service_label`: 特定のサービスのラベルを更新
+- `waroom_delete_service_label`: 特定のサービスのラベルを削除
+- `waroom_update_incident_labels`: インシデントにラベルを付与または更新
 
 ### API エンドポイント
 
@@ -88,6 +94,11 @@ node dist/main.js
 - `PUT /internal/incidents/{uuid}/severity`: インシデント重要度の更新
 - `PUT /internal/incidents/{uuid}/status`: インシデントステータスの更新
 - `POST /internal/incidents/{uuid}/metrics`: インシデントメトリクスの作成
+- `GET /internal/services/{service_name}/labels`: サービスのラベル一覧取得
+- `POST /internal/services/{service_name}/labels`: サービスのラベル作成
+- `PATCH /internal/services/{service_name}/labels/{uuid}`: サービスのラベル更新
+- `DELETE /internal/services/{service_name}/labels/{uuid}`: サービスのラベル削除
+- `PATCH /internal/incidents/{uuid}/labels`: インシデントのラベル付与/更新
 
 ## Claude Desktop での設定
 
