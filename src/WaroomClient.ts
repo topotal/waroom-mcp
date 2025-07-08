@@ -106,6 +106,24 @@ export class WaroomClient {
     }
   }
 
+  async createIncident(serviceNameorId: string, title: string, severity: string, description?: string, experimental?: boolean, isPrivate?: boolean) {
+    try {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents`, {
+        incident: {
+          service_name: serviceNameorId,
+          title,
+          severity,
+          description,
+          experimental: experimental ?? false,
+          is_private: isPrivate ?? false
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create incident: ${error}`);
+    }
+  }
+
   async updateIncidentSeverity(incidentUuid: string, severity: string) {
     try {
       const response = await this.axiosInstance.put(`${this.baseUrl}/internal/incidents/${incidentUuid}/severity`, {
@@ -130,7 +148,7 @@ export class WaroomClient {
 
   async createIncidentMetrics(incidentUuid: string, activityAction: string, triggeredAt: string) {
     try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents/${incidentUuid}/incident_metrics`, {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents/${incidentUuid}/metrics`, {
         activity_action: activityAction,
         triggered_at: triggeredAt
       });

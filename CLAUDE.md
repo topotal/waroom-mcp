@@ -36,9 +36,9 @@ node dist/main.js
 - `src/main.ts`: MCPサーバーのエントリーポイント。StdioTransportを使用してMCPサーバーを起動
 - `src/WaroomClient.ts`: Waroom Internal API と通信するHTTPクライアント。axios ベース、認証ヘッダー管理
 - `src/tools/`: MCP ツール定義
-  - `incidents.ts`: インシデント関連のツール（一覧取得、詳細取得）
-  - `postmortems.ts`: ポストモーテム関連のツール（一覧取得、作成）
-  - `service-architecture-contexts.ts`: サービスアーキテクチャコンテキスト関連のツール（一覧取得、作成）
+  - `incidents.ts`: インシデント関連のツール（作成、一覧取得、詳細取得、重要度・ステータス更新、メトリクス作成）
+  - `postmortems.ts`: ポストモーテム関連のツール（一覧取得、作成、テンプレート取得）
+  - `services.ts`: サービス関連のツール（一覧取得、アーキテクチャコンテキスト取得）
 
 ### 技術スタック
 
@@ -61,6 +61,7 @@ node dist/main.js
 
 各ツールは日本語の説明とパラメータバリデーションを持つ：
 
+- `waroom_create_incident`: インシデントの作成（サービス名、タイトル、重要度など指定）
 - `waroom_get_incidents`: ページネーション対応のインシデント一覧
 - `waroom_get_incident_details`: UUID による個別インシデント詳細
 - `waroom_get_postmortems`: ページネーション対応のポストモーテム一覧
@@ -76,6 +77,7 @@ node dist/main.js
 
 ベースURL: `https://api.app.waroom.com/api/v0`
 
+- `POST /internal/incidents`: インシデント作成
 - `GET /internal/incidents`: インシデント一覧（statusパラメータでフィルタリング可能）
 - `GET /internal/incidents/{uuid}`: インシデント詳細
 - `GET /internal/postmortems`: ポストモーテム一覧
@@ -85,7 +87,7 @@ node dist/main.js
 - `GET /internal/services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
 - `PUT /internal/incidents/{uuid}/severity`: インシデント重要度の更新
 - `PUT /internal/incidents/{uuid}/status`: インシデントステータスの更新
-- `POST /internal/incidents/{uuid}/incident_metrics`: インシデントメトリクスの作成
+- `POST /internal/incidents/{uuid}/metrics`: インシデントメトリクスの作成
 
 ## Claude Desktop での設定
 

@@ -4,6 +4,44 @@ import { z } from 'zod';
 
 export const createIncidentsTools = (server: McpServer, waroomClient: WaroomClient) => {
   server.tool(
+    'waroom_create_incident',
+    'インシデントを作成します。',
+    {
+      service_name: z.string().min(1).describe('サービス名またはサービスID'),
+      title: z.string().min(1).max(255).describe('インシデントのタイトル（1-255文字）'),
+      severity: z.enum(['critical', 'high', 'low', 'info', 'unknown']).describe('重要度（critical, high, low, info, unknown）'),
+      description: z.string().optional().describe('インシデントの説明（オプション）'),
+      experimental: z.boolean().default(false).describe('実験的なインシデントかどうか（デフォルト: false）'),
+      is_private: z.boolean().default(false).describe('プライベートインシデントかどうか（デフォルト: false）'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.createIncident(
+          params.service_name,
+          params.title,
+          params.severity,
+          params.description,
+          params.experimental,
+          params.is_private
+        );
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `インシデントの作成に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
+
+  server.tool(
     'waroom_get_incidents',
     'インシデントの一覧を取得します。各種フィルター条件を指定できます。',
     {
@@ -125,7 +163,7 @@ export const createIncidentsTools = (server: McpServer, waroomClient: WaroomClie
     'インシデントメトリクスを作成します。レスポンス活動を記録し、TTD/TTA/TTI/TTF/TTRを更新します。',
     {
       incident_uuid: z.string().uuid().describe('対象インシデントのUUID'),
-      activity_action: z.enum(['detected', 'acknowledged', 'investigation_started', 'fix_started', 'resolved']).describe('活動アクション（detected, acknowledged, investigation_started, fix_started, resolved）'),
+      activity_action: z.enum(['detected', 'investigating', 'fixing', 'resolved', 'close', 'triggered', 'critical', 'high', 'low', 'info', 'unknown', 'unspecified', 'code_bug', 'configuration_error', 'deployment_failure', 'infrastructure_failure', 'operational_failure', 'third_party_outage', 'other']).describe('活動アクション（status: detected/investigating/fixing/resolved/close/triggered, severity: critical/high/low/info/unknown, root_cause: unspecified/code_bug/configuration_error/deployment_failure/infrastructure_failure/operational_failure/third_party_outage/other）'),
       triggered_at: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?([+-]\d{2}:\d{2}|Z)$/).describe('実行時刻（ISO 8601形式、例: 2023-01-01T12:00:00Z）'),
     },
     async (params) => {
