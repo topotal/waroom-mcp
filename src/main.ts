@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import { WaroomClient } from './WaroomClient.js';
 import { createIncidentsTools } from './tools/incidents.js';
 import { createPostmortemsTools } from './tools/postmortems.js';
-import { createServiceArchitectureContextsTools } from './tools/service-architecture-contexts.js';
 import { createServicesTools } from './tools/services.js';
 
 dotenv.config();
@@ -21,7 +20,6 @@ const server = new McpServer({
 
 createIncidentsTools(server, waroomClient);
 createPostmortemsTools(server, waroomClient);
-createServiceArchitectureContextsTools(server, waroomClient);
 createServicesTools(server, waroomClient);
 
 const transport = new StdioServerTransport();

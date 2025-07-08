@@ -66,4 +66,28 @@ export const createPostmortemsTools = (server: McpServer, waroomClient: WaroomCl
       }
     }
   );
+
+  server.tool(
+    'waroom_get_postmortem_template',
+    'ポストモーテムテンプレートを取得します。',
+    {},
+    async () => {
+      try {
+        const response = await waroomClient.getPostmortemTemplate();
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `ポストモーテムテンプレートの取得に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
 };

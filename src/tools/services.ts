@@ -32,4 +32,30 @@ export const createServicesTools = (server: McpServer, waroomClient: WaroomClien
       }
     }
   );
+
+  server.tool(
+    'waroom_get_service_architecture_context',
+    '特定のサービスのアーキテクチャコンテキストを取得します。',
+    {
+      service_name: z.string().min(1).max(100).describe('サービス名'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.getServiceArchitectureContext(params.service_name);
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `サービスアーキテクチャコンテキストの取得に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
 };
