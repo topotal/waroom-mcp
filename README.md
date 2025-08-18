@@ -1,6 +1,5 @@
 # Waroom MCP
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > [!CAUTION]
 > これはまだ実験的なプロジェクトであり、安定性やパフォーマンスは保証されていません。使用する際は注意してください。
@@ -11,28 +10,24 @@
 
 Waroom MCP サーバーは、Waroom APIエンドポイントに構造化された方法でアクセスする方法を提供します。インシデント情報やポストモーテム情報の取得など、さまざまな機能をサポートしています。
 
-## 使用方法
 
-サーバーを起動するには、必要な環境変数を設定してください：
+## セットアップ
 
-```bash
-export WAROOM_API_KEY=your_api_key
-```
-
-次に、以下のコマンドを実行します：
+### Claude Code での使用
 
 ```bash
-npx @topotal/waroom-mcp
+claude mcp add waroom-mcp --env WAROOM_API_KEY=your-api-key -- npx @topotal/waroom-mcp
 ```
 
-これにより、MCPサーバーが起動し、定義されたツールを通じてWaroom APIとインタラクションできるようになります。
+> [!NOTE]
+> nodenv や nvm を使用している場合は、`npx` のフルパスを指定してください。
 
-## Claude Desktop での使用
+### Claude Desktop での使用
 
-Claude Desktopでこの MCP サーバーを使用するには、手動で `npx @topotal/waroom-mcp` を実行する必要はありません。代わりに、Claude Desktop の設定ファイルに以下の設定を追加してください：
+設定ファイルに以下を追加してください：
 
-- MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -48,7 +43,7 @@ Claude Desktopでこの MCP サーバーを使用するには、手動で `npx @
 }
 ```
 
-その後、通常通りClaude Desktopを起動してください。nodenvやnvmを使用している場合は、`npx`コマンドのフルパスを指定する必要があるかもしれません。
+設定後、Claude Desktop を再起動すると Waroom の各種機能が利用できるようになります。
 
 ## 利用可能なツール
 
@@ -77,57 +72,3 @@ Claude Desktopでこの MCP サーバーを使用するには、手動で `npx @
 - `waroom_create_service_label`: 特定のサービスに新しいラベルを作成
 - `waroom_update_service_label`: 特定のサービスのラベルを更新
 - `waroom_delete_service_label`: 特定のサービスのラベルを削除
-
-## デバッグ
-
-まず、プロジェクトをビルドします：
-
-```bash
-npm install
-npm run build
-```
-
-MCPサーバーはstdioを介して実行されるため、デバッグは困難な場合があります。最適なデバッグ体験のために、MCP Inspectorの使用を強くお勧めします。
-
-以下のコマンドでnpmを介してMCP Inspectorを起動できます：
-
-```bash
-npx @modelcontextprotocol/inspector "./dist/main.js"
-```
-
-環境変数が適切に構成されていることを確認してください。
-
-起動すると、Inspectorはブラウザでアクセスしてデバッグを開始できるURLを表示します。
-
-## パブリッシュ
-
-パッケージの新しいバージョンを公開するには、以下の手順に従います：
-
-1. mainブランチから最新のコードをプル
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
-
-2. パッケージをビルド
-   ```bash
-   npm run build
-   ```
-
-3. npmに公開
-   ```bash
-   npm publish
-   ```
-
-4. 変更をリモートリポジトリにプッシュ
-   ```bash
-   git push origin main --tags
-   ```
-
-## 貢献
-
-貢献は歓迎します！リポジトリをフォークし、改善やバグ修正のためにプルリクエストを提出してください。
-
-## ライセンス
-
-このプロジェクトはMITライセンスの下でライセンスされています。詳細はLICENSEファイルを参照してください。
