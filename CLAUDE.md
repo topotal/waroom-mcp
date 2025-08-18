@@ -23,18 +23,18 @@ npm run lint
 # MCP Inspector でデバッグ
 npm run inspector
 
-# サーバー実行（Internal API を使用）
+# サーバー実行（v0 API を使用）
 node dist/main.js
 ```
 
 ## アーキテクチャ
 
-このプロジェクトは Waroom Internal API に接続する Model Context Protocol (MCP) サーバーです。
+このプロジェクトは Waroom v0 API に接続する Model Context Protocol (MCP) サーバーです。
 
 ### 主要コンポーネント
 
 - `src/main.ts`: MCPサーバーのエントリーポイント。StdioTransportを使用してMCPサーバーを起動
-- `src/WaroomClient.ts`: Waroom Internal API と通信するHTTPクライアント。axios ベース、認証ヘッダー管理
+- `src/WaroomClient.ts`: Waroom v0 API と通信するHTTPクライアント。axios ベース、認証ヘッダー管理
 - `src/tools/`: MCP ツール定義
   - `incidents.ts`: インシデント関連のツール（作成、一覧取得、詳細取得、重要度・ステータス更新、メトリクス作成）
   - `postmortems.ts`: ポストモーテム関連のツール（一覧取得、作成、テンプレート取得）
@@ -83,22 +83,22 @@ node dist/main.js
 
 ベースURL: `https://api.app.waroom.com/api/v0`
 
-- `POST /internal/incidents`: インシデント作成
-- `GET /internal/incidents`: インシデント一覧（statusパラメータでフィルタリング可能）
-- `GET /internal/incidents/{uuid}`: インシデント詳細
-- `GET /internal/postmortems`: ポストモーテム一覧
-- `POST /internal/postmortems`: ポストモーテム作成
-- `GET /internal/postmortem_template`: ポストモーテムテンプレート取得
-- `GET /internal/services`: サービス一覧
-- `GET /internal/services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
-- `PUT /internal/incidents/{uuid}/severity`: インシデント重要度の更新
-- `PUT /internal/incidents/{uuid}/status`: インシデントステータスの更新
-- `POST /internal/incidents/{uuid}/metrics`: インシデントメトリクスの作成
-- `GET /internal/services/{service_name}/labels`: サービスのラベル一覧取得
-- `POST /internal/services/{service_name}/labels`: サービスのラベル作成
-- `PATCH /internal/services/{service_name}/labels/{uuid}`: サービスのラベル更新
-- `DELETE /internal/services/{service_name}/labels/{uuid}`: サービスのラベル削除
-- `PATCH /internal/incidents/{uuid}/labels`: インシデントのラベル付与/更新
+- `POST /incidents`: インシデント作成
+- `GET /incidents`: インシデント一覧（statusパラメータでフィルタリング可能）
+- `GET /incidents/{uuid}`: インシデント詳細
+- `GET /postmortems`: ポストモーテム一覧
+- `POST /postmortems`: ポストモーテム作成
+- `GET /postmortem_template`: ポストモーテムテンプレート取得
+- `GET /services`: サービス一覧
+- `GET /services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `PUT /incidents/{uuid}/severity`: インシデント重要度の更新
+- `PUT /incidents/{uuid}/status`: インシデントステータスの更新
+- `POST /incidents/{uuid}/metrics`: インシデントメトリクスの作成
+- `GET /services/{service_name}/labels`: サービスのラベル一覧取得
+- `POST /services/{service_name}/labels`: サービスのラベル作成
+- `PATCH /services/{service_name}/labels/{uuid}`: サービスのラベル更新
+- `DELETE /services/{service_name}/labels/{uuid}`: サービスのラベル削除
+- `PATCH /incidents/{uuid}/labels`: インシデントのラベル付与/更新
 
 ## Claude Desktop での設定
 
