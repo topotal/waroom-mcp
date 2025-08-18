@@ -35,7 +35,7 @@ export class WaroomClient {
       if (filters.label_names?.length) params.label_names = filters.label_names.join(',');
       if (filters.commander_id) params.commander_id = filters.commander_id;
 
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/incidents`, { params });
+      const response = await this.axiosInstance.get(`${this.baseUrl}/incidents`, { params });
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get incidents: ${error}`);
@@ -44,7 +44,7 @@ export class WaroomClient {
 
   async getIncidentDetails(incidentUuid: string) {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/incidents/${incidentUuid}`);
+      const response = await this.axiosInstance.get(`${this.baseUrl}/incidents/${incidentUuid}`);
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get incident details: ${error}`);
@@ -53,7 +53,7 @@ export class WaroomClient {
 
   async getPostmortems(page = 1, perPage = 50) {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/postmortems`, {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/postmortems`, {
         params: { page, per_page: perPage }
       });
       return response.data;
@@ -64,7 +64,7 @@ export class WaroomClient {
 
   async createPostmortem(title: string, blob: string, incidentUuids: string[], status?: string) {
     try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/postmortems`, {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/postmortems`, {
         title,
         blob,
         incident_uuids: incidentUuids,
@@ -79,7 +79,7 @@ export class WaroomClient {
 
   async getServices(page = 1, perPage = 50) {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/services`, {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/services`, {
         params: { page, per_page: perPage }
       });
       return response.data;
@@ -90,7 +90,7 @@ export class WaroomClient {
 
   async getPostmortemTemplate() {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/postmortem_template`);
+      const response = await this.axiosInstance.get(`${this.baseUrl}/postmortem_template`);
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get postmortem template: ${error}`);
@@ -99,7 +99,7 @@ export class WaroomClient {
 
   async getServiceArchitectureContext(serviceName: string) {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/services/${serviceName}/service_architecture_context`);
+      const response = await this.axiosInstance.get(`${this.baseUrl}/services/${serviceName}/service_architecture_context`);
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get service architecture context: ${error}`);
@@ -108,7 +108,7 @@ export class WaroomClient {
 
   async createIncident(serviceNameorId: string, title: string, severity: string, description?: string, experimental?: boolean, isPrivate?: boolean) {
     try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents`, {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/incidents`, {
         incident: {
           service_name: serviceNameorId,
           title,
@@ -126,7 +126,7 @@ export class WaroomClient {
 
   async updateIncidentSeverity(incidentUuid: string, severity: string) {
     try {
-      const response = await this.axiosInstance.put(`${this.baseUrl}/internal/incidents/${incidentUuid}/severity`, {
+      const response = await this.axiosInstance.put(`${this.baseUrl}/incidents/${incidentUuid}/severity`, {
         severity
       });
       return response.data;
@@ -137,7 +137,7 @@ export class WaroomClient {
 
   async updateIncidentStatus(incidentUuid: string, status: string) {
     try {
-      const response = await this.axiosInstance.put(`${this.baseUrl}/internal/incidents/${incidentUuid}/status`, {
+      const response = await this.axiosInstance.put(`${this.baseUrl}/incidents/${incidentUuid}/status`, {
         status
       });
       return response.data;
@@ -148,7 +148,7 @@ export class WaroomClient {
 
   async createIncidentMetrics(incidentUuid: string, activityAction: string, triggeredAt: string) {
     try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/incidents/${incidentUuid}/metrics`, {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/incidents/${incidentUuid}/metrics`, {
         activity_action: activityAction,
         triggered_at: triggeredAt
       });
@@ -160,7 +160,7 @@ export class WaroomClient {
 
   async getServiceLabels(serviceName: string, page = 1, perPage = 50) {
     try {
-      const response = await this.axiosInstance.get(`${this.baseUrl}/internal/services/${serviceName}/labels`, {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/services/${serviceName}/labels`, {
         params: { page, per_page: perPage }
       });
       return response.data;
@@ -171,7 +171,7 @@ export class WaroomClient {
 
   async createServiceLabel(serviceName: string, name: string, color: string) {
     try {
-      const response = await this.axiosInstance.post(`${this.baseUrl}/internal/services/${serviceName}/labels`, {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/services/${serviceName}/labels`, {
         label: {
           name,
           color
@@ -185,7 +185,7 @@ export class WaroomClient {
 
   async updateServiceLabel(serviceName: string, labelUuid: string, name: string, color: string) {
     try {
-      const response = await this.axiosInstance.patch(`${this.baseUrl}/internal/services/${serviceName}/labels/${labelUuid}`, {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/services/${serviceName}/labels/${labelUuid}`, {
         label: {
           name,
           color
@@ -199,7 +199,7 @@ export class WaroomClient {
 
   async deleteServiceLabel(serviceName: string, labelUuid: string) {
     try {
-      const response = await this.axiosInstance.delete(`${this.baseUrl}/internal/services/${serviceName}/labels/${labelUuid}`);
+      const response = await this.axiosInstance.delete(`${this.baseUrl}/services/${serviceName}/labels/${labelUuid}`);
       return response.data;
     } catch (error) {
       throw new Error(`Failed to delete service label: ${error}`);
@@ -208,7 +208,7 @@ export class WaroomClient {
 
   async updateIncidentLabels(incidentUuid: string, labelUuids: string[]) {
     try {
-      const response = await this.axiosInstance.patch(`${this.baseUrl}/internal/incidents/${incidentUuid}/labels`, {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/incidents/${incidentUuid}/labels`, {
         label_uuids: labelUuids
       });
       return response.data;
