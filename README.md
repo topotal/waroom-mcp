@@ -1,5 +1,6 @@
 # Waroom MCP
 
+[![npm version](https://badge.fury.io/js/@topotal%2Fwaroom-mcp.svg)](https://badge.fury.io/js/@topotal%2Fwaroom-mcp)
 
 > [!CAUTION]
 > これはまだ実験的なプロジェクトであり、安定性やパフォーマンスは保証されていません。使用する際は注意してください。
