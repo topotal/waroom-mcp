@@ -53,6 +53,14 @@ node dist/main.js
 
 - `WAROOM_API_KEY`: Waroom API 認証キー（必須）
 
+**設定済みMCPサーバー:**
+- `notion`: Notion API との連携（Streamable HTTP）
+- `sentry`: Sentry エラー監視・分析（Streamable HTTP）
+
+**初回セットアップ:**
+1. Claude Code を再起動してMCPサーバーを有効化
+2. 各MCPサーバーでOAuth認証を行う（初回のみ）
+
 ### ビルド出力
 
 - `dist/`: TypeScript コンパイル結果
