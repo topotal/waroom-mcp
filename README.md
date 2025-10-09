@@ -73,3 +73,36 @@ claude mcp add waroom-mcp --env WAROOM_API_KEY=your-api-key -- npx @topotal/waro
 - `waroom_create_service_label`: 特定のサービスに新しいラベルを作成
 - `waroom_update_service_label`: 特定のサービスのラベルを更新
 - `waroom_delete_service_label`: 特定のサービスのラベルを削除
+
+## スラッシュコマンド（Claude Code）
+
+Claude Code では、以下のスラッシュコマンドを使用してインシデント対応を効率化できます。
+
+### `/mcp__waroom_mcp__create`
+
+インシデント対応を開始し、作業内容を自動追跡するスラッシュコマンドです。
+
+#### 使い方
+
+```bash
+# タイトル指定あり
+/mcp__waroom_mcp__create "データベース接続エラー"
+
+# タイトル指定なし（対話で質問）
+/mcp__waroom_mcp__create
+```
+
+#### 主な機能
+
+- **サービスの自動検索**: サービス一覧から対話的に選択
+- **インシデントの自動作成**: 重要度 `unknown` で自動作成
+- **作業の自動追跡**: レスポンダーの発言から自動的にフェーズを判断し、Waroomを更新
+  - 調査開始 → `investigating` + TTD記録
+  - 原因特定 → TTA記録
+  - 修正開始 → `fixing` + TTI記録
+  - 修正完了 → `resolved` + TTF/TTR記録
+- **継続的な更新**: 会話全体でインシデント情報を最新状態に保持
+
+#### 使用シーン
+
+レスポンダーがClaude Codeでインシデント対応作業（コード調査、ログ確認、修正作業）を進める際に、自動的にWaroomのインシデント情報を更新し、記録を残すことができます。明示的に指示しなくても、作業内容から自動判断して適切なステータスやメトリクスを更新します。
