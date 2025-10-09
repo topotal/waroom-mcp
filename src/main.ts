@@ -29,8 +29,8 @@ createLabelsTools(server, waroomClient);
 
 // リソースの登録
 server.resource(
-  'waroom://about',
   'Waroom MCP の使い方ガイド - インシデント対応の自動化とポストモーテム管理',
+  'waroom://about',
   async () => {
     return {
       contents: [
