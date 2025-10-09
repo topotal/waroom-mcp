@@ -10,7 +10,7 @@ export const createIncidentsTools = (server: McpServer, waroomClient: WaroomClie
       service_name: z.string().min(1).describe('サービス名またはサービスID'),
       title: z.string().min(1).max(255).describe('インシデントのタイトル（1-255文字）'),
       severity: z.enum(['critical', 'high', 'low', 'info', 'unknown']).describe('重要度（critical, high, low, info, unknown）'),
-      description: z.string().optional().describe('インシデントの説明（オプション）'),
+      description: z.string().min(1).describe('インシデントの説明'),
       experimental: z.boolean().default(false).describe('実験的なインシデントかどうか（デフォルト: false）'),
       is_private: z.boolean().default(false).describe('プライベートインシデントかどうか（デフォルト: false）'),
     },
