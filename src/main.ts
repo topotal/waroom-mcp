@@ -9,6 +9,7 @@ import { createPostmortemsTools } from './tools/postmortems.js';
 import { createServicesTools } from './tools/services.js';
 import { createLabelsTools } from './tools/labels.js';
 import { getIncidentResponsePromptMessages } from './prompts/incident-response.js';
+import { getIncidentRespondPromptMessages } from './prompts/incident-respond.js';
 import { aboutContent } from './resources/about.js';
 
 dotenv.config();
@@ -54,6 +55,19 @@ server.prompt(
   async (args) => {
     return {
       messages: getIncidentResponsePromptMessages(args.title),
+    };
+  }
+);
+
+server.prompt(
+  'respond',
+  '既存のWaroomインシデントに対して対応を開始します。インシデントのUUIDまたはURLを指定してください。',
+  {
+    incident: z.string().min(1).describe('インシデントのUUIDまたはURL'),
+  },
+  async (args) => {
+    return {
+      messages: getIncidentRespondPromptMessages(args.incident),
     };
   }
 );
