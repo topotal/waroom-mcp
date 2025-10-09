@@ -49,7 +49,7 @@ server.prompt(
   'create',
   'Waroomでインシデント対応を開始します。サービスを検索してインシデントを作成し、作業を自動追跡します。',
   {
-    title: z.string().min(1).optional().describe('インシデントのタイトル（省略可、省略時は対話で質問）'),
+    title: z.string().min(1).describe('インシデントのタイトル'),
   },
   async (args) => {
     return {
