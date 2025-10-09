@@ -9,6 +9,7 @@ import { createPostmortemsTools } from './tools/postmortems.js';
 import { createServicesTools } from './tools/services.js';
 import { createLabelsTools } from './tools/labels.js';
 import { getIncidentResponsePromptMessages } from './prompts/incident-response.js';
+import { aboutContent } from './resources/about.js';
 
 dotenv.config();
 
@@ -25,6 +26,23 @@ createIncidentsTools(server, waroomClient);
 createPostmortemsTools(server, waroomClient);
 createServicesTools(server, waroomClient);
 createLabelsTools(server, waroomClient);
+
+// リソースの登録
+server.resource(
+  'waroom://about',
+  'Waroom MCP の使い方ガイド - インシデント対応の自動化とポストモーテム管理',
+  async () => {
+    return {
+      contents: [
+        {
+          uri: 'waroom://about',
+          mimeType: 'text/markdown',
+          text: aboutContent,
+        },
+      ],
+    };
+  }
+);
 
 // プロンプトの登録
 server.prompt(
