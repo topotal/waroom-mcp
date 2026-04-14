@@ -16,6 +16,7 @@ dotenv.config();
 
 const waroomClient = new WaroomClient({
   apiKey: process.env.WAROOM_API_KEY || '',
+  ...(process.env.WAROOM_BASE_URL && { baseUrl: process.env.WAROOM_BASE_URL }),
 });
 
 const server = new McpServer({
