@@ -74,6 +74,11 @@ claude mcp add waroom-mcp --env WAROOM_API_KEY=your-api-key -- npx @topotal/waro
 - `waroom_update_service_label`: 特定のサービスのラベルを更新
 - `waroom_delete_service_label`: 特定のサービスのラベルを削除
 
+### ランブック関連
+- `waroom_get_runbooks`: ページネーション対応のランブック一覧
+- `waroom_get_runbook`: namespace による個別ランブック詳細
+- `waroom_update_runbook`: ランブックの更新（内容・namespace の変更）
+
 ## スラッシュコマンド（Claude Code）
 
 Claude Code では、以下のスラッシュコマンドを使用してインシデント対応を効率化できます。
