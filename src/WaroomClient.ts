@@ -206,6 +206,42 @@ export class WaroomClient {
     }
   }
 
+  async getRunbooks(page = 1, perPage = 50) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/runbooks`, {
+        params: { page, per_page: perPage }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get runbooks: ${error}`);
+    }
+  }
+
+  async getRunbook(namespace: string) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/runbooks/${this.encodeNamespacePath(namespace)}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get runbook: ${error}`);
+    }
+  }
+
+  async updateRunbook(namespace: string, updates: { namespace?: string; blob?: string }) {
+    try {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/runbooks/${this.encodeNamespacePath(namespace)}`, {
+        runbook: updates
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update runbook: ${error}`);
+    }
+  }
+
+  // namespace はスラッシュを含むパスなので、セグメント単位でエンコードする
+  private encodeNamespacePath(namespace: string) {
+    return namespace.replace(/^\//, '').split('/').map(encodeURIComponent).join('/');
+  }
+
   async updateIncidentLabels(incidentUuid: string, labelUuids: string[]) {
     try {
       const response = await this.axiosInstance.patch(`${this.baseUrl}/incidents/${incidentUuid}/labels`, {

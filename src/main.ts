@@ -8,6 +8,7 @@ import { createIncidentsTools } from './tools/incidents.js';
 import { createPostmortemsTools } from './tools/postmortems.js';
 import { createServicesTools } from './tools/services.js';
 import { createLabelsTools } from './tools/labels.js';
+import { createRunbooksTools } from './tools/runbooks.js';
 import { getIncidentResponsePromptMessages } from './prompts/incident-response.js';
 import { getIncidentRespondPromptMessages } from './prompts/incident-respond.js';
 import { aboutContent } from './resources/about.js';
@@ -28,6 +29,7 @@ createIncidentsTools(server, waroomClient);
 createPostmortemsTools(server, waroomClient);
 createServicesTools(server, waroomClient);
 createLabelsTools(server, waroomClient);
+createRunbooksTools(server, waroomClient);
 
 // リソースの登録
 server.resource(
