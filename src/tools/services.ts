@@ -58,4 +58,31 @@ export const createServicesTools = (server: McpServer, waroomClient: WaroomClien
       }
     }
   );
+
+  server.tool(
+    'waroom_update_service_architecture_context',
+    '特定のサービスのアーキテクチャコンテキストを更新します。既存のコンテキストがあれば更新し、無ければ新規作成されます。',
+    {
+      service_name: z.string().min(1).max(100).describe('サービス名'),
+      blob: z.string().min(1).describe('アーキテクチャコンテキストの内容'),
+    },
+    async (params) => {
+      try {
+        const response = await waroomClient.updateServiceArchitectureContext(params.service_name, params.blob);
+        return {
+          content: [{
+            type: 'text',
+            text: JSON.stringify(response, null, 2)
+          }]
+        };
+      } catch (error) {
+        return {
+          content: [{
+            type: 'text',
+            text: `サービスアーキテクチャコンテキストの更新に失敗しました: ${error}`
+          }]
+        };
+      }
+    }
+  );
 };

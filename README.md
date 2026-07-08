@@ -67,6 +67,7 @@ claude mcp add waroom-mcp --env WAROOM_API_KEY=your-api-key -- npx @topotal/waro
 ### サービス関連
 - `waroom_get_services`: サービス一覧取得
 - `waroom_get_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `waroom_update_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト更新
 
 ### ラベル管理
 - `waroom_get_service_labels`: 特定のサービスのラベル一覧を取得

@@ -106,6 +106,19 @@ export class WaroomClient {
     }
   }
 
+  async updateServiceArchitectureContext(serviceName: string, blob: string) {
+    try {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/services/${serviceName}/service_architecture_context`, {
+        service_architecture_context: {
+          blob
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update service architecture context: ${error}`);
+    }
+  }
+
   async createIncident(serviceNameorId: string, title: string, severity: string, description?: string, experimental?: boolean, isPrivate?: boolean) {
     try {
       const response = await this.axiosInstance.post(`${this.baseUrl}/incidents`, {

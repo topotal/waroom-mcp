@@ -79,6 +79,7 @@ node dist/main.js
 - `waroom_get_postmortem_template`: ポストモーテムテンプレート取得
 - `waroom_get_services`: サービス一覧取得
 - `waroom_get_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `waroom_update_service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト更新（既存があれば更新、無ければ新規作成）
 - `waroom_update_incident_severity`: インシデント重要度の更新
 - `waroom_update_incident_status`: インシデントステータスの更新
 - `waroom_create_incident_metrics`: インシデントメトリクスの作成（TTD/TTA/TTI/TTF/TTR更新）
@@ -103,6 +104,7 @@ node dist/main.js
 - `GET /postmortem_template`: ポストモーテムテンプレート取得
 - `GET /services`: サービス一覧
 - `GET /services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト取得
+- `PATCH /services/{name}/service_architecture_context`: 特定のサービスのアーキテクチャコンテキスト更新
 - `PUT /incidents/{uuid}/severity`: インシデント重要度の更新
 - `PUT /incidents/{uuid}/status`: インシデントステータスの更新
 - `POST /incidents/{uuid}/metrics`: インシデントメトリクスの作成
