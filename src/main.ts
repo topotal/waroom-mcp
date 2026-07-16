@@ -9,6 +9,8 @@ import { createPostmortemsTools } from './tools/postmortems.js';
 import { createServicesTools } from './tools/services.js';
 import { createLabelsTools } from './tools/labels.js';
 import { createRunbooksTools } from './tools/runbooks.js';
+import { createActionItemsTools } from './tools/actionItems.js';
+import { createUsersTools } from './tools/users.js';
 import { getIncidentResponsePromptMessages } from './prompts/incident-response.js';
 import { getIncidentRespondPromptMessages } from './prompts/incident-respond.js';
 import { aboutContent } from './resources/about.js';
@@ -30,6 +32,8 @@ createPostmortemsTools(server, waroomClient);
 createServicesTools(server, waroomClient);
 createLabelsTools(server, waroomClient);
 createRunbooksTools(server, waroomClient);
+createActionItemsTools(server, waroomClient);
+createUsersTools(server, waroomClient);
 
 // リソースの登録
 server.resource(
