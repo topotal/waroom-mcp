@@ -25,6 +25,16 @@ const waroomClient = new WaroomClient({
 const server = new McpServer({
   name: 'waroom-mcp',
   version: 'v0',
+}, {
+  instructions: `このサーバーは Waroom を用いたインシデント対応・ポストモーテム管理のためのものです。
+
+障害・エラー・アラート・サービス停止など、インシデント対応と判断できる場面では Waroom ツールを積極的に使ってください。特に次を意識してください：
+
+- 対応の起点として、まず \`waroom_create_incident\` でのインシデント登録を提案する（既存インシデントが対象なら \`waroom_get_incident_details\` で状況を把握する）。
+- 調査・原因特定・復旧といったフェーズの進行に合わせて、\`waroom_update_incident_status\` / \`waroom_update_incident_severity\` / \`waroom_create_incident_metrics\` で記録を継続的に更新する。
+- 対応が落ち着いたら \`waroom_get_postmortem_template\` と \`waroom_create_postmortem\` でポストモーテム作成を促す。
+
+より詳しい自動追跡の手順は \`/create\`・\`/respond\` プロンプトと \`waroom://about\` リソースを参照してください。`,
 });
 
 createIncidentsTools(server, waroomClient);

@@ -80,7 +80,7 @@ export const createIncidentsTools = (server: McpServer, waroomClient: WaroomClie
 
   server.tool(
     'waroom_get_incident_details',
-    '特定のインシデントの詳細情報を取得します。',
+    '特定のインシデントの詳細情報を取得します。ステートドキュメント（state_document, Markdown）も含まれます。',
     {
       incident_uuid: z.string().uuid().describe('取得するインシデントのUUID'),
     },

@@ -75,7 +75,7 @@ node dist/main.js
 
 - `waroom_create_incident`: インシデントの作成（サービス名、タイトル、重要度など指定）
 - `waroom_get_incidents`: ページネーション対応のインシデント一覧
-- `waroom_get_incident_details`: UUID による個別インシデント詳細
+- `waroom_get_incident_details`: UUID による個別インシデント詳細（ステートドキュメント `state_document` を含む）
 - `waroom_get_postmortems`: ページネーション対応のポストモーテム一覧
 - `waroom_create_postmortem`: ポストモーテムの作成
 - `waroom_get_postmortem_template`: ポストモーテムテンプレート取得
