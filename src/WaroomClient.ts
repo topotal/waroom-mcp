@@ -88,6 +88,17 @@ export class WaroomClient {
     }
   }
 
+  async getUsers(page = 1, perPage = 50) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/users`, {
+        params: { page, per_page: perPage }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get users: ${error}`);
+    }
+  }
+
   async getPostmortemTemplate() {
     try {
       const response = await this.axiosInstance.get(`${this.baseUrl}/postmortem_template`);
@@ -253,6 +264,60 @@ export class WaroomClient {
   // namespace はスラッシュを含むパスなので、セグメント単位でエンコードする
   private encodeNamespacePath(namespace: string) {
     return namespace.replace(/^\//, '').split('/').map(encodeURIComponent).join('/');
+  }
+
+  async getIncidentActionItems(incidentUuid: string, page = 1, perPage = 50) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/incidents/${incidentUuid}/action_items`, {
+        params: { page, per_page: perPage }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get incident action items: ${error}`);
+    }
+  }
+
+  async createIncidentActionItem(incidentUuid: string, title: string, status?: string) {
+    try {
+      const response = await this.axiosInstance.post(`${this.baseUrl}/incidents/${incidentUuid}/action_items`, {
+        action_item: {
+          title,
+          ...(status && { status })
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create incident action item: ${error}`);
+    }
+  }
+
+  async updateIncidentActionItem(incidentUuid: string, actionItemUuid: string, updates: { title?: string; status?: string; assignee_nickname?: string | null }) {
+    try {
+      const response = await this.axiosInstance.patch(`${this.baseUrl}/incidents/${incidentUuid}/action_items/${actionItemUuid}`, {
+        action_item: updates
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update incident action item: ${error}`);
+    }
+  }
+
+  async getIncidentActionItem(incidentUuid: string, actionItemUuid: string) {
+    try {
+      const response = await this.axiosInstance.get(`${this.baseUrl}/incidents/${incidentUuid}/action_items/${actionItemUuid}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get incident action item: ${error}`);
+    }
+  }
+
+  async deleteIncidentActionItem(incidentUuid: string, actionItemUuid: string) {
+    try {
+      const response = await this.axiosInstance.delete(`${this.baseUrl}/incidents/${incidentUuid}/action_items/${actionItemUuid}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to delete incident action item: ${error}`);
+    }
   }
 
   async updateIncidentLabels(incidentUuid: string, labelUuids: string[]) {

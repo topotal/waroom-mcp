@@ -80,6 +80,16 @@ claude mcp add waroom-mcp --env WAROOM_API_KEY=your-api-key -- npx @topotal/waro
 - `waroom_get_runbook`: namespace による個別ランブック詳細
 - `waroom_update_runbook`: ランブックの更新（内容・namespace の変更）
 
+### アクションアイテム関連
+- `waroom_get_incident_action_items`: 特定のインシデントのアクションアイテム一覧を取得
+- `waroom_create_incident_action_item`: 特定のインシデントにアクションアイテムを作成
+- `waroom_get_incident_action_item`: アクションアイテムの詳細取得
+- `waroom_update_incident_action_item`: アクションアイテムの更新（タイトル・ステータス・担当者）
+- `waroom_delete_incident_action_item`: アクションアイテムの削除
+
+### ユーザー関連
+- `waroom_get_users`: 組織のユーザー一覧を取得（担当者指定に使う nickname の確認）
+
 ## スラッシュコマンド（Claude Code）
 
 Claude Code では、以下のスラッシュコマンドを使用してインシデント対応を効率化できます。

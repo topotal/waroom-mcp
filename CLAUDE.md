@@ -41,6 +41,8 @@ node dist/main.js
   - `services.ts`: サービス関連のツール（一覧取得、アーキテクチャコンテキスト取得）
   - `labels.ts`: ラベル管理のツール（サービスラベル一覧取得、作成、更新、削除、インシデントラベル付与）
   - `runbooks.ts`: ランブック関連のツール（一覧取得、詳細取得、更新）
+  - `actionItems.ts`: アクションアイテム関連のツール（一覧取得、作成、詳細取得、更新、削除）
+  - `users.ts`: ユーザー関連のツール（一覧取得）
 
 ### 技術スタック
 
@@ -91,6 +93,12 @@ node dist/main.js
 - `waroom_get_runbooks`: ランブック一覧取得
 - `waroom_get_runbook`: namespace による個別ランブック詳細
 - `waroom_update_runbook`: ランブックの更新（内容・namespace の変更）
+- `waroom_get_incident_action_items`: 特定のインシデントのアクションアイテム一覧を取得
+- `waroom_create_incident_action_item`: 特定のインシデントにアクションアイテムを作成
+- `waroom_get_incident_action_item`: アクションアイテムの詳細取得
+- `waroom_update_incident_action_item`: アクションアイテムの更新（タイトル・ステータス・担当者）
+- `waroom_delete_incident_action_item`: アクションアイテムの削除
+- `waroom_get_users`: 組織のユーザー一覧を取得
 
 ### API エンドポイント
 
@@ -116,6 +124,12 @@ node dist/main.js
 - `GET /runbooks`: ランブック一覧
 - `GET /runbooks/{namespace}`: ランブック詳細（namespace はスラッシュを含むパス）
 - `PATCH /runbooks/{namespace}`: ランブック更新
+- `GET /incidents/{uuid}/action_items`: インシデントのアクションアイテム一覧
+- `POST /incidents/{uuid}/action_items`: インシデントのアクションアイテム作成
+- `GET /incidents/{uuid}/action_items/{action_item_uuid}`: アクションアイテム詳細
+- `PATCH /incidents/{uuid}/action_items/{action_item_uuid}`: アクションアイテム更新（title・status・assignee_nickname、null で解除）
+- `DELETE /incidents/{uuid}/action_items/{action_item_uuid}`: アクションアイテム削除
+- `GET /users`: 組織のユーザー一覧
 
 ## Claude Desktop での設定
 
