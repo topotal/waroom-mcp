@@ -1,6 +1,6 @@
 {
   "name": "@topotal/waroom-mcp",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Waroom MCP Server - Access Waroom API through Model Context Protocol",
   "publishConfig": {
     "access": "public"
